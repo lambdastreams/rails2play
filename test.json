@@ -1,0 +1,247 @@
+{
+  "header": {
+    "source": "024-04",
+    "code": 0,
+    "message": "Success",
+    "system_time": 1671306878983,
+    "tracking_id": "fb8812b9-b5f7-472d-9ab2-8e662253ca03"
+  },
+  "data": {
+    "ad": "false",
+    "ae": "true",
+    "aq": "Stereo",
+    "ct": "2022-10-03T10:02:43Z",
+    "cty": "movie",
+    "cup": [
+      {
+        "ad_ed": 1272001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 1272001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 2042001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 2042001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 2387001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 2387001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 3192001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 3192001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 3563001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 3563001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 4032001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 4032001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 4435001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 4435001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 4807001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 4807001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 5264001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 5264001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 581001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 581001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 5991001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 5991001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 6491001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 6491001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      },
+      {
+        "ad_ed": 7214001,
+        "ad_rl": "MID",
+        "ad_rl_en": "true",
+        "ad_st": 7214001,
+        "prd": "default",
+        "sp_imm_fl": "",
+        "spid": ""
+      }
+    ],
+    "ed_dt": "2025-10-03T00:00:00Z",
+    "ent": [
+      {
+        "con": "us",
+        "det": "all",
+        "dt": "all",
+        "f_ed_dt": "2025-10-03T00:00:00Z",
+        "f_st_dt": "2022-10-03T00:00:00Z",
+        "prd": "default",
+        "sp": ["urn:package:localnow:free"]
+      }
+    ],
+    "ex_id": "62427ae60ef7b872995f8fcf",
+    "ia": ["0-2x3", "0-16x9"],
+    "id": "5584D1F9-D627-4205-BDF5-68A541F1BD85",
+    "key": "5584D1F9-D627-4205-BDF5-68A541F1BD85-1664791364318",
+    "locs": [
+      {
+        "lang": "en",
+        "lon": [
+          {
+            "lang": "en",
+            "n": "Kyung-gu Sol"
+          },
+          {
+            "lang": "en",
+            "n": "Ji-won Ha"
+          },
+          {
+            "lang": "en",
+            "n": "Joong-Hoon Park"
+          },
+          {
+            "lang": "en",
+            "n": "Jeong-hwa Eom"
+          },
+          {
+            "lang": "en",
+            "n": "Min-gi Lee"
+          },
+          {
+            "lang": "en",
+            "n": "Ye-won Kang"
+          },
+          {
+            "lang": "en",
+            "n": "In-kwon Kim"
+          }
+        ],
+        "r": ["actor"]
+      }
+    ],
+    "lod": [
+      {
+        "lang": "en",
+        "n": "A deep-sea earthquake occurs, creating a tidal wave that is headed straight for Haeundae, a popular vacation spot on the south coast of Korea, which draws visitors from all over the world."
+      }
+    ],
+    "log": [
+      {
+        "lang": "en",
+        "n": ["Action"]
+      }
+    ],
+    "lold": [
+      {
+        "lang": "en",
+        "n": "A deep-sea earthquake occurs, creating a tidal wave that is headed straight for Haeundae, a popular vacation spot on the south coast of Korea, which draws visitors from all over the world."
+      }
+    ],
+    "lon": [
+      {
+        "lang": "en",
+        "n": "Tidal Wave (English dub)"
+      }
+    ],
+    "lwe": "2025-10-03T00:00:00Z",
+    "lws": "2022-10-03T00:00:00Z",
+    "net": "magnoliapictures",
+    "nu": "tidal-wave-english-dub",
+    "nu_prd": [
+      {
+        "nu": "tidal-wave-english-dub",
+        "prd": "default"
+      }
+    ],
+    "ol": "English",
+    "pdt": "2010-05-11T00:00:00.000Z",
+    "ph": [
+      {
+        "lang": "en",
+        "n": ["magnoliapictures"]
+      }
+    ],
+    "pn": "magnoliapictures",
+    "prd": ["localnow"],
+    "pt": "SVOD",
+    "r": 2010,
+    "rat": [
+      {
+        "cc": "US",
+        "s": "default",
+        "v": "R"
+      }
+    ],
+    "rdt": "2010-05-11T00:00:00.000Z",
+    "rt": 7214,
+    "st": "published",
+    "st_dt": "2022-10-03T00:00:00Z",
+    "urn": "urn:resource:catalog:movie",
+    "ut": "2022-12-14T08:31:32Z",
+    "vq": "FHD"
+  }
+}

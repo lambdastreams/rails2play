@@ -6,23 +6,34 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 
 	log "github.com/sirupsen/logrus"
 )
 
 type Builder struct {
 	baseurl string
-	paths   []string
 	params  []multimap
 	headers []multimap
 	method  string
 	client  *http.Client
 	handler ResponseHandler
 }
+type ResponseHandler func(*http.Response) error
 
-func (rb *Builder) Path(path string) *Builder {
-	rb.paths = append(rb.paths, path)
-	return rb
+// ToString writes the response body to the provided string pointer.
+func ToString(sp *string) ResponseHandler {
+	return func(res *http.Response) error {
+		log.Info("Moving to string")
+		var buf strings.Builder
+		_, err := io.Copy(&buf, res.Body)
+		if err == nil {
+			*sp = buf.String()
+		} else {
+			log.Error("Failed with error", err)
+		}
+		return err
+	}
 }
 
 type multimap struct {
@@ -65,9 +76,7 @@ func (rb *Builder) Request(ctx context.Context) (req *http.Request, err error) {
 	if err != nil {
 		return nil, fmt.Errorf("could not initialize with base URL %q: %w", u, err)
 	}
-	for _, p := range rb.paths {
-		u.Path = u.ResolveReference(&url.URL{Path: p}).Path
-	}
+
 	if len(rb.params) > 0 {
 		q := u.Query()
 		for _, kv := range rb.params {
@@ -81,6 +90,7 @@ func (rb *Builder) Request(ctx context.Context) (req *http.Request, err error) {
 	if rb.method != "" {
 		method = rb.method
 	}
+
 	log.WithFields(log.Fields{
 		"method": method,
 		"body":   body,
@@ -152,8 +162,4 @@ func (rb *Builder) Fetch(ctx context.Context) (err error) {
 		return err
 	}
 	return rb.Do(req)
-}
-
-func (rb *Builder) ToJSON(v any) *Builder {
-	return rb.Handle(ToJSON(v))
 }

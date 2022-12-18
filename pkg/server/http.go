@@ -3,8 +3,9 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gorilla/mux"
 	"github.com/subbarao/transformer/pkg/transform"
@@ -28,6 +29,11 @@ func New(quickPlayURL string) *App {
 }
 
 func (a *App) Run(port int) {
+	log.WithFields(log.Fields{
+		"port":         port,
+		"quickPlayURL": a.quickPlayURL,
+	}).Info("starting server")
+
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), a.router))
 }
 
@@ -37,6 +43,7 @@ func (app *App) initializeRoutes() {
 	app.router.HandleFunc("/series/{id}", setJSONContentType(app.getSeries))
 }
 
+// HandleFunc queries quick play for movie details and responds with rails json keys
 func (a *App) getMovie(response http.ResponseWriter, request *http.Request) {
 	params := mux.Vars(request)
 	id := params["id"]
@@ -56,6 +63,7 @@ func (a *App) getMovie(response http.ResponseWriter, request *http.Request) {
 	response.Write(jsonResponse)
 }
 
+// HandleFunc queries quick play for series details and responds with rails json keys
 func (a *App) getSeries(response http.ResponseWriter, request *http.Request) {
 	params := mux.Vars(request)
 	id := params["id"]

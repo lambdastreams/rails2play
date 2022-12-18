@@ -13,7 +13,8 @@ func main() {
 	viper.ReadInConfig()
 	port := viper.GetInt("PORT")
 	quickPlayURL := viper.GetString("QUICK_PLAY_URL")
-	server.Start(port, quickPlayURL)
+	app := server.New(quickPlayURL)
+	app.Run(port)
 }
 
 func init() {
@@ -25,5 +26,5 @@ func init() {
 	log.SetOutput(os.Stdout)
 
 	// Only log the warning severity or above.
-	log.SetLevel(log.WarnLevel)
+	log.SetLevel(log.DebugLevel)
 }

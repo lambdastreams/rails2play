@@ -1,9 +1,7 @@
-package http
+package api
 
 import (
-	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -11,23 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func GetMovie(movie string) (string, error) {
-	var result string
-	err := URL(fmt.Sprintf("https://data-store-cdn.cms-stag.amdvids.com/content/urn/resource/catalog/movie/%s?reg=us&dt=androidmobile&client=amd-localnow-web", movie)).
-		Header("X-Tracking-Id", "fb8812b9-b5f7-472d-9ab2-8e662253ca03").
-		ToString(&result).
-		Fetch(context.Background())
-
-	if err != nil {
-		log.Error("error", err)
-		return "", err
-	}
-
-	return result, nil
-
-}
-
-type ResponseHandler = func(*http.Response) error
+type ResponseHandler func(*http.Response) error
 
 // ToJSON decodes a response as a JSON object.
 func ToJSON(v any) ResponseHandler {

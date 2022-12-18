@@ -1,0 +1,116 @@
+{
+    "header": {
+      "source": "024-07",
+      "code": 0,
+      "message": "Success",
+      "system_time": 1671337292516,
+      "start": 1,
+      "rows": 1,
+      "count": 1,
+      "tracking_id": "fb8812b9-b5f7-472d-9ab2-8e662253ca03"
+    },
+    "data": [
+      {
+        "ad": "false",
+        "ae": "false",
+        "aq": "Stereo",
+        "co": "USA",
+        "ct": "2022-10-03T11:07:16Z",
+        "cty": "tvepisode",
+        "ed_dt": "2025-10-03T00:00:00Z",
+        "ent": [
+          {
+            "con": "us",
+            "det": "all",
+            "dt": "all",
+            "f_ed_dt": "2025-10-03T00:00:00Z",
+            "f_st_dt": "2022-10-03T00:00:00Z",
+            "prd": "default",
+            "sp": [
+              "urn:package:localnow:free"
+            ]
+          }
+        ],
+        "epnum": 108,
+        "ex_id": "6232012966013604001b382b",
+        "ia": [
+          "0-16x9"
+        ],
+        "id": "1029E3AB-AE97-43BE-A0E9-180D9BA5E688",
+        "key": "1029E3AB-AE97-43BE-A0E9-180D9BA5E688-1664795237967",
+        "lod": [
+          {
+            "lang": "en",
+            "n": "Think your day at work was hard? Well check out the nightmare scenarios facing these men and woman as their 9-5 shifts turn into a race to survive. Record-breaking snow, torrential rainfall, and even "
+          }
+        ],
+        "log": [
+          {
+            "lang": "en",
+            "n": [
+              "Weather"
+            ]
+          }
+        ],
+        "lold": [
+          {
+            "lang": "en",
+            "n": "Think your day at work was hard? Well check out the nightmare scenarios facing these men and woman as their 9-5 shifts turn into a race to survive. Record-breaking snow, torrential rainfall, and even tornados – bring a day at the office to a halt."
+          }
+        ],
+        "lon": [
+          {
+            "lang": "en",
+            "n": "Tough Day at The Office"
+          }
+        ],
+        "losetl": [
+          {
+            "lang": "en",
+            "n": "Weather Gone Viral Season 1"
+          }
+        ],
+        "lostl": [
+          {
+            "lang": "en",
+            "n": "Weather Gone Viral"
+          }
+        ],
+        "lwe": "2025-10-03T00:00:00Z",
+        "lws": "2022-10-03T00:00:00Z",
+        "net": "theweatherchannel",
+        "nu": "tough-day-at-the-office-1",
+        "nu_prd": [
+          {
+            "nu": "tough-day-at-the-office-1",
+            "prd": "default"
+          }
+        ],
+        "ol": "English",
+        "pdt": "2015-01-01T00:00:00.000Z",
+        "pn": "theweatherchannel",
+        "prd": [
+          "localnow"
+        ],
+        "pt": "SVOD",
+        "r": 2015,
+        "rat": [
+          {
+            "cc": "US",
+            "s": "default",
+            "v": "TV-G"
+          }
+        ],
+        "rdt": "2015-01-01T00:00:00.000Z",
+        "rt": 2548,
+        "setl_id": "00FFFEBA-9E34-4C3E-99F5-D6D814403FD5",
+        "snum": 1,
+        "st": "published",
+        "st_dt": "2022-10-03T00:00:00Z",
+        "stl_id": "227336A3-CA32-4DD2-BDC9-6221C36DF5B9",
+        "urn": "urn:resource:catalog:tvepisode",
+        "ut": "2022-12-14T08:32:51Z",
+        "vq": "FHD"
+      }
+    ]
+  }

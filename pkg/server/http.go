@@ -11,13 +11,13 @@ import (
 )
 
 // server to handle rails requests
-func Start(baseURL string) {
+func Start(port int, baseURL string) {
 	r := mux.NewRouter()
 	r.HandleFunc("/movie/{id}", getMovieHandler(baseURL))
 	r.HandleFunc("/series/{id}", getSeriesHandler(baseURL))
 	http.Handle("/", r)
-	fmt.Println("Starting up on 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Printf("Starting up on %d", port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
 }
 
 func getMovieHandler(baseURL string) func(http.ResponseWriter, *http.Request) {

@@ -4,12 +4,16 @@ import (
 	"os"
 
 	log "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"github.com/subbarao/transformer/pkg/server"
 )
 
 func main() {
-	baseURL := "https://data-store-cdn.cms-stag.amdvids.com"
-	server.Start(baseURL)
+	viper.SetConfigFile(".env")
+	viper.ReadInConfig()
+	port := viper.GetInt("PORT")
+	quickPlayURL := viper.GetString("QUICK_PLAY_URL")
+	server.Start(port, quickPlayURL)
 }
 
 func init() {

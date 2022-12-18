@@ -11,7 +11,7 @@ import (
 )
 
 func TestMoviePropertyTransform(t *testing.T) {
-	b, err := ioutil.ReadFile("testdata/test.json")
+	b, err := ioutil.ReadFile("testdata/movie.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -32,6 +32,22 @@ func TestMoviePropertyTransform(t *testing.T) {
 		{
 			field:    "Name",
 			expected: "Tidal Wave (English dub)",
+		},
+		{
+			field:    "Title",
+			expected: "Tidal Wave (English dub)",
+		},
+		{
+			field:    "Slug",
+			expected: "tidal-wave-english-dub",
+		},
+		{
+			field:    "ProgrammingType",
+			expected: "movie",
+		},
+		{
+			field:    "Rating",
+			expected: "R",
 		},
 		{
 			field:    "Description",
@@ -61,7 +77,7 @@ func TestMovie(t *testing.T) {
 	defer gock.Off() // Flush pending mocks after test execution
 	gock.New("https://data-store-cdn.cms-stag.amdvids.com/content/urn/resource/catalog/movie/foobar?reg=us&dt=androidmobile&client=amd-localnow-web").
 		Reply(http.StatusOK).
-		File(path.Join("testdata", "test.json"))
+		File(path.Join("testdata", "movie.json"))
 	movie, _ := GetMovie(baseURL, "foobar")
 
 	if movie.Id != "5584D1F9-D627-4205-BDF5-68A541F1BD85" {

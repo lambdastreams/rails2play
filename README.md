@@ -7,14 +7,18 @@ go run main.go
 ### Get Movie Details
 
 ```
- curl localhost:8080/movie/5584D1F9-D627-4205-BDF5-68A541F1BD85 | jq
+curl localhost:8080/movie/5584D1F9-D627-4205-BDF5-68A541F1BD85 | jq
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100   285  100   285    0     0  11322      0 --:--:-- --:--:-- --:--:-- 17812
+100   392  100   392    0     0   6758      0 --:--:-- --:--:-- --:--:--  7840
 {
   "_id": "5584D1F9-D627-4205-BDF5-68A541F1BD85",
   "name": "Tidal Wave (English dub)",
-  "description": "A deep-sea earthquake occurs, creating a tidal wave that is headed straight for Haeundae, a popular vacation spot on the south coast of Korea, which draws visitors from all over the world."
+  "title": "Tidal Wave (English dub)",
+  "rating": "R",
+  "slug": "tidal-wave-english-dub",
+  "description": "A deep-sea earthquake occurs, creating a tidal wave that is headed straight for Haeundae, a popular vacation spot on the south coast of Korea, which draws visitors from all over the world.",
+  "programming_type": "movie"
 }
 ```
 

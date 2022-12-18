@@ -10,9 +10,13 @@ import (
 )
 
 type Movie struct {
-	Id          string `json:"_id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	Id              string `json:"_id"`
+	Name            string `json:"name"`
+	Title           string `json:"title"`
+	Rating          string `json:"rating"`
+	Slug            string `json:"slug"`
+	Description     string `json:"description"`
+	ProgrammingType string `json:"programming_type"`
 }
 
 // Query movie information from quickplay
@@ -49,10 +53,17 @@ func buildMovie(body string) Movie {
 	name := gjson.Get(body, "data.lon.#(lang==\"en\").n")
 	id := gjson.Get(body, "data.id")
 	description := gjson.Get(body, "data.lod.#(lang==\"en\").n")
+	rating := gjson.Get(body, "data.rat.0.v")
+	slug := gjson.Get(body, "data.nu")
+	contentType := gjson.Get(body, "data.cty")
 
 	return Movie{
-		Id:          id.String(),
-		Name:        name.String(),
-		Description: description.String(),
+		Id:              id.String(),
+		Name:            name.String(),
+		Title:           name.String(),
+		Rating:          rating.String(),
+		Slug:            slug.String(),
+		ProgrammingType: contentType.String(),
+		Description:     description.String(),
 	}
 }

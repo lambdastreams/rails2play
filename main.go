@@ -8,7 +8,8 @@ import (
 )
 
 func main() {
-	server.Start()
+	baseURL := "https://data-store-cdn.cms-stag.amdvids.com"
+	server.Start(baseURL)
 }
 
 func init() {

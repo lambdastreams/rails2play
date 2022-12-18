@@ -16,13 +16,13 @@ type Movie struct {
 }
 
 // Query movie information from quickplay
-func GetMovie(name string) (*Movie, error) {
+func GetMovie(baseURL string, name string) (*Movie, error) {
 	contextLogger := log.WithFields(log.Fields{
 		"movie": name,
 	})
 
 	var body string
-	err := api.URL(movieURL(name)).
+	err := api.URL(movieURL(baseURL, name)).
 		ToString(&body).
 		Fetch(context.Background())
 
@@ -37,12 +37,12 @@ func GetMovie(name string) (*Movie, error) {
 	return &movie, nil
 }
 
-func movieURL(movie string) string {
-	return fmt.Sprintf("https://data-store-cdn.cms-stag.amdvids.com/content/urn/resource/catalog/movie/%s?reg=us&dt=androidmobile&client=amd-localnow-web", movie)
+func movieURL(baseURL string, movie string) string {
+	return fmt.Sprintf("%s/content/urn/resource/catalog/movie/%s?reg=us&dt=androidmobile&client=amd-localnow-web", baseURL, movie)
 }
 
-func seriesURL(series string) string {
-	return fmt.Sprintf("https://data-store-cdn.cms-stag.amdvids.com/content/series/%s/episodes?reg=us&dt=androidmobile&client=amd-localnow-web&seasonId=00FFFEBA-9E34-4C3E-99F5-D6D814403FD5&pageNumber=1&pageSize=10&sortBy=ut&st=published", series)
+func seriesURL(baseURL string, series string) string {
+	return fmt.Sprintf("%s/content/series/%s/episodes?reg=us&dt=androidmobile&client=amd-localnow-web&seasonId=00FFFEBA-9E34-4C3E-99F5-D6D814403FD5&pageNumber=1&pageSize=10&sortBy=ut&st=published", baseURL, series)
 }
 
 func buildMovie(body string) Movie {

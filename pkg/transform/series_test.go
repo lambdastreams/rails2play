@@ -55,7 +55,7 @@ func TestSeries(t *testing.T) {
 	gock.New("https://data-store-cdn.cms-stag.amdvids.com/content/series/tedlaslo/episodes?reg=us&dt=androidmobile&client=amd-localnow-web&seasonId=00FFFEBA-9E34-4C3E-99F5-D6D814403FD5&pageNumber=1&pageSize=10&sortBy=ut&st=published").
 		Reply(http.StatusOK).
 		File(path.Join("testdata", "series.json"))
-	movie, _ := GetSeries("tedlaslo")
+	movie, _ := GetSeries(baseURL, "tedlaslo")
 
 	if movie.Id != "1029E3AB-AE97-43BE-A0E9-180D9BA5E688" {
 		t.Errorf("expected 1029E3AB-AE97-43BE-A0E9-180D9BA5E688, but got %s", movie.Id)

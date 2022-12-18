@@ -55,12 +55,14 @@ func getField(v *Movie, field string) string {
 	return f.String()
 }
 
+const baseURL = "https://data-store-cdn.cms-stag.amdvids.com/"
+
 func TestMovie(t *testing.T) {
 	defer gock.Off() // Flush pending mocks after test execution
 	gock.New("https://data-store-cdn.cms-stag.amdvids.com/content/urn/resource/catalog/movie/foobar?reg=us&dt=androidmobile&client=amd-localnow-web").
 		Reply(http.StatusOK).
 		File(path.Join("testdata", "test.json"))
-	movie, _ := GetMovie("foobar")
+	movie, _ := GetMovie(baseURL, "foobar")
 
 	if movie.Id != "5584D1F9-D627-4205-BDF5-68A541F1BD85" {
 		t.Errorf("expected 5584D1F9-D627-4205-BDF5-68A541F1BD85, but got %s", movie.Id)

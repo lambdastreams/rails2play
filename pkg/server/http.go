@@ -11,51 +11,55 @@ import (
 )
 
 // server to handle rails requests
-func Start() {
+func Start(baseURL string) {
 	r := mux.NewRouter()
-	r.HandleFunc("/movie/{id}", handleMovie)
-	r.HandleFunc("/series/{id}", handleSeries)
+	r.HandleFunc("/movie/{id}", getMovieHandler(baseURL))
+	r.HandleFunc("/series/{id}", getSeriesHandler(baseURL))
 	http.Handle("/", r)
 	fmt.Println("Starting up on 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func handleMovie(response http.ResponseWriter, request *http.Request) {
-	params := mux.Vars(request)
-	id := params["id"]
-	movie, err := transform.GetMovie(id)
-	if err != nil {
-		response.WriteHeader(http.StatusNotFound)
-		return
+func getMovieHandler(baseURL string) func(http.ResponseWriter, *http.Request) {
+	return func(response http.ResponseWriter, request *http.Request) {
+		params := mux.Vars(request)
+		id := params["id"]
+		movie, err := transform.GetMovie(baseURL, id)
+		if err != nil {
+			response.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		jsonResponse, jsonError := json.Marshal(movie)
+
+		if jsonError != nil {
+			fmt.Println("Unable to encode JSON")
+		}
+
+		response.Header().Set("Content-Type", "application/json")
+		response.WriteHeader(http.StatusOK)
+		response.Write(jsonResponse)
 	}
-
-	jsonResponse, jsonError := json.Marshal(movie)
-
-	if jsonError != nil {
-		fmt.Println("Unable to encode JSON")
-	}
-
-	response.Header().Set("Content-Type", "application/json")
-	response.WriteHeader(http.StatusOK)
-	response.Write(jsonResponse)
 }
 
-func handleSeries(response http.ResponseWriter, request *http.Request) {
-	params := mux.Vars(request)
-	id := params["id"]
-	series, err := transform.GetSeries(id)
-	if err != nil {
-		response.WriteHeader(http.StatusNotFound)
-		return
+func getSeriesHandler(baseURL string) func(http.ResponseWriter, *http.Request) {
+	return func(response http.ResponseWriter, request *http.Request) {
+		params := mux.Vars(request)
+		id := params["id"]
+		series, err := transform.GetSeries(baseURL, id)
+		if err != nil {
+			response.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		jsonResponse, jsonError := json.Marshal(series)
+
+		if jsonError != nil {
+			fmt.Println("Unable to encode JSON")
+		}
+
+		response.Header().Set("Content-Type", "application/json")
+		response.WriteHeader(http.StatusOK)
+		response.Write(jsonResponse)
 	}
-
-	jsonResponse, jsonError := json.Marshal(series)
-
-	if jsonError != nil {
-		fmt.Println("Unable to encode JSON")
-	}
-
-	response.Header().Set("Content-Type", "application/json")
-	response.WriteHeader(http.StatusOK)
-	response.Write(jsonResponse)
 }

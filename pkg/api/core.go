@@ -12,11 +12,17 @@ import (
 
 type Builder struct {
 	baseurl string
+	paths   []string
 	params  []multimap
 	headers []multimap
 	method  string
 	client  *http.Client
 	handler ResponseHandler
+}
+
+func (rb *Builder) Path(path string) *Builder {
+	rb.paths = append(rb.paths, path)
+	return rb
 }
 
 type multimap struct {
@@ -58,6 +64,9 @@ func (rb *Builder) Request(ctx context.Context) (req *http.Request, err error) {
 	u, err := url.Parse(rb.baseurl)
 	if err != nil {
 		return nil, fmt.Errorf("could not initialize with base URL %q: %w", u, err)
+	}
+	for _, p := range rb.paths {
+		u.Path = u.ResolveReference(&url.URL{Path: p}).Path
 	}
 	if len(rb.params) > 0 {
 		q := u.Query()

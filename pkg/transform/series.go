@@ -14,9 +14,9 @@ type Series struct {
 	Description string `json:"description"`
 }
 
-func GetSeries(name string) (*Series, error) {
+func GetSeries(baseURL string, name string) (*Series, error) {
 	var body string
-	err := api.URL(seriesURL(name)).
+	err := api.URL(seriesURL(baseURL, name)).
 		ToString(&body).
 		Fetch(context.Background())
 
@@ -28,6 +28,7 @@ func GetSeries(name string) (*Series, error) {
 
 	return &series, nil
 }
+
 func buildSeries(body string) Series {
 	name := gjson.Get(body, "data.0.lon.#(lang==\"en\").n")
 	id := gjson.Get(body, "data.0.id")

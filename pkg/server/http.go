@@ -52,8 +52,11 @@ func (a *App) getMovie(response http.ResponseWriter, request *http.Request) {
 		response.WriteHeader(http.StatusNotFound)
 		return
 	}
+	var resource = make(map[string]interface{})
+	resource["channels"] = [1]transform.Movie{*movie}
+	resource["success"] = true
 
-	jsonResponse, jsonError := json.Marshal(movie)
+	jsonResponse, jsonError := json.Marshal(resource)
 
 	if jsonError != nil {
 		fmt.Println("Unable to encode JSON")

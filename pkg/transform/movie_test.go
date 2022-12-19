@@ -18,7 +18,11 @@ func TestMoviePropertyTransform(t *testing.T) {
 	value := string(b)
 	movie := buildMovie(value)
 	if movie.Id != "5584D1F9-D627-4205-BDF5-68A541F1BD85" {
-		t.Errorf("got %q, wanted adfk", movie.Id)
+		t.Errorf("got %s, wanted %s", movie.Id, "5584D1F9-D627-4205-BDF5-68A541F1BD85")
+	}
+
+	if !reflect.DeepEqual(movie.Genre, [3]string{"Horror", "Mystery", "Thriller"}) {
+		t.Errorf("got %q, wanted adfk", movie.Genre)
 	}
 
 	cases := []struct {

@@ -10,13 +10,17 @@ import (
 )
 
 type Movie struct {
-	Id              string `json:"_id"`
-	Name            string `json:"name"`
-	Title           string `json:"title"`
-	Rating          string `json:"rating"`
-	Slug            string `json:"slug"`
-	Description     string `json:"description"`
-	ProgrammingType string `json:"programming_type"`
+	Id              string   `json:"_id"`
+	Name            string   `json:"name"`
+	Title           string   `json:"title"`
+	Rating          string   `json:"rating"`
+	Slug            string   `json:"slug"`
+	Description     string   `json:"description"`
+	Genre           []string `json:"genre"`
+	Directors       []string `json:"directors"`
+	Writers         []string `json:"writers"`
+	Tags            []string `json:"tags"`
+	ProgrammingType string   `json:"programming_type"`
 }
 
 // Query movie information from quickplay
@@ -48,12 +52,30 @@ func movieURL(baseURL string, movie string) string {
 func seriesURL(baseURL string, series string) string {
 	return fmt.Sprintf("%s/content/series/%s/episodes?reg=us&dt=androidmobile&client=amd-localnow-web&seasonId=00FFFEBA-9E34-4C3E-99F5-D6D814403FD5&pageNumber=1&pageSize=10&sortBy=ut&st=published", baseURL, series)
 }
+func map2[T, U any](data []T, f func(T) U) []U {
+	res := make([]U, 0, len(data))
+
+	for _, e := range data {
+		res = append(res, f(e))
+	}
+
+	return res
+}
+func asString(key gjson.Result) string {
+	return key.String()
+}
 
 func buildMovie(body string) Movie {
 	name := gjson.Get(body, "data.lon.#(lang==\"en\").n")
 	id := gjson.Get(body, "data.id")
 	description := gjson.Get(body, "data.lod.#(lang==\"en\").n")
 	rating := gjson.Get(body, "data.rat.0.v")
+
+	genre := map2(gjson.Get(body, "data.log.#(lang==\"en\").n").Array(), asString)
+	directors := map2(gjson.Get(body, "data.lodr.#.lon.#(lang==\"en\").n").Array(), asString)
+	writers := map2(gjson.Get(body, "data.lowr.#.lon.#(lang==\"en\").n").Array(), asString)
+	tags := map2(gjson.Get(body, "data.lotg.#(lang==\"en\").n").Array(), asString)
+
 	slug := gjson.Get(body, "data.nu")
 	contentType := gjson.Get(body, "data.cty")
 
@@ -63,6 +85,10 @@ func buildMovie(body string) Movie {
 		Title:           name.String(),
 		Rating:          rating.String(),
 		Slug:            slug.String(),
+		Genre:           genre,
+		Directors:       directors,
+		Writers:         writers,
+		Tags:            tags,
 		ProgrammingType: contentType.String(),
 		Description:     description.String(),
 	}

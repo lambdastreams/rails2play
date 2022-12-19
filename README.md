@@ -35,3 +35,26 @@ curl localhost:8080/series/227336A3-CA32-4DD2-BDC9-6221C36DF5B9 | jq
   "description": "Think your day at work was hard? Well check out the nightmare scenarios facing these men and woman as their 9-5 shifts turn into a race to survive. Record-breaking snow, torrential rainfall, and even "
 }
 ```
+
+#### Quick Play Endpoints
+
+[Movie](/content/urn/resource/catalog/movie/%s?reg=us&dt=androidmobile&client=amd-localnow-web)
+[Series](/content/series/%s/episodes?reg=us&dt=androidmobile&client=amd-localnow-web&seasonId=00FFFEBA-9E34-4C3E-99F5-D6D814403FD5&pageNumber=1&pageSize=10&sortBy=ut&st=published)
+
+#### Libraries Used
+
+[Config](https://github.com/spf13/viper)
+[Logging](https://github.com/sirupsen/logrus)
+[Used To Map QuickPlay response keys to rails](https://github.com/tidwall/gjson)
+[HTTP Requests](https://pkg.go.dev/net/http)
+[gock Mock HTTP Requests](https://github.com/h2non/gock)
+
+#### Test Coverage
+
+```
+❯ go test -cover ./...
+?   	github.com/subbarao/transformer	[no test files]
+?   	github.com/subbarao/transformer/pkg/api	[no test files]
+ok  	github.com/subbarao/transformer/pkg/server	(cached)	coverage: 72.7% of statements
+ok  	github.com/subbarao/transformer/pkg/transform	(cached)	coverage: 86.2% of statements
+```

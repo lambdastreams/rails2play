@@ -87,11 +87,16 @@
         "f_ed_dt": "2032-12-15T00:00:00Z",
         "f_st_dt": "2022-12-15T00:00:00Z",
         "prd": "default",
-        "sp": ["urn:package:localnow:free"]
+        "sp": [
+          "urn:package:localnow:free"
+        ]
       }
     ],
     "ex_id": "62ed9271fa5935f6f63a0006",
-    "ia": ["0-2x3", "0-16x9"],
+    "ia": [
+      "0-2x3",
+      "0-16x9"
+    ],
     "id": "EF392B33-F6AB-4323-8DF9-3F9F761FFFD4",
     "key": "EF392B33-F6AB-4323-8DF9-3F9F761FFFD4-1671018662929",
     "locs": [
@@ -100,7 +105,9 @@
           {
             "lang": "en",
             "n": "Tianna Nori",
-            "r": ["actor"]
+            "r": [
+              "actor"
+            ]
           }
         ]
       },
@@ -109,7 +116,9 @@
           {
             "lang": "en",
             "n": "Mark Matechuk",
-            "r": ["actor"]
+            "r": [
+              "actor"
+            ]
           }
         ]
       },
@@ -118,7 +127,9 @@
           {
             "lang": "en",
             "n": "Krista Madison",
-            "r": ["actor"]
+            "r": [
+              "actor"
+            ]
           }
         ]
       }
@@ -135,7 +146,9 @@
           {
             "lang": "en",
             "n": "John Ainslie",
-            "r": ["director"]
+            "r": [
+              "director"
+            ]
           }
         ]
       }
@@ -143,7 +156,11 @@
     "log": [
       {
         "lang": "en",
-        "n": ["Horror", "Mystery", "Thriller"]
+        "n": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ]
       }
     ],
     "lold": [
@@ -184,7 +201,9 @@
           {
             "lang": "en",
             "n": "John Ainslie",
-            "r": ["writer"]
+            "r": [
+              "writer"
+            ]
           }
         ]
       }
@@ -204,11 +223,15 @@
     "ph": [
       {
         "lang": "en",
-        "n": ["tricoasttv"]
+        "n": [
+          "tricoasttv"
+        ]
       }
     ],
     "pn": "tricoasttv",
-    "prd": ["localnow"],
+    "prd": [
+      "localnow"
+    ],
     "pt": "SVOD",
     "r": 2015,
     "rat": [

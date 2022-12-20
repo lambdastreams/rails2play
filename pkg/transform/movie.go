@@ -18,6 +18,7 @@ type Movie struct {
 	Title           string   `json:"title"`
 	Rating          string   `json:"rating"`
 	Slug            string   `json:"slug"`
+	Year            int64    `json:"year"`
 	Description     string   `json:"description"`
 	Genre           []string `json:"genre"`
 	Directors       []string `json:"directors"`
@@ -124,12 +125,12 @@ func buildMovie(body string) Movie {
 	id := gjson.Get(body, "data.id")
 	description := gjson.Get(body, "data.lod.#(lang==\"en\").n")
 	rating := gjson.Get(body, "data.rat.0.v")
+	year := gjson.Get(body, "data.r")
 
 	genre := map2(gjson.Get(body, "data.log.#(lang==\"en\").n").Array(), asString)
 	directors := map2(gjson.Get(body, "data.lodr.#.lon.#(lang==\"en\").n").Array(), asString)
 	writers := map2(gjson.Get(body, "data.lowr.#.lon.#(lang==\"en\").n").Array(), asString)
 	tags := map2(gjson.Get(body, "data.lotg.#(lang==\"en\").n").Array(), asString)
-
 	slug := gjson.Get(body, "data.nu")
 	contentType := gjson.Get(body, "data.cty")
 
@@ -143,6 +144,7 @@ func buildMovie(body string) Movie {
 		Directors:       directors,
 		Writers:         writers,
 		Tags:            tags,
+		Year:            year.Int(),
 		ProgrammingType: contentType.String(),
 		Description:     description.String(),
 	}

@@ -2,19 +2,22 @@ package main
 
 import (
 	"os"
+	"strconv"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 	"github.com/subbarao/transformer/pkg/server"
 )
 
 func main() {
-	viper.SetConfigFile(".env")
-	viper.ReadInConfig()
-	port := viper.GetInt("PORT")
-	quickPlayURL := viper.GetString("QUICK_PLAY_URL")
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+	quickPlayURL := "https://data-store-cdn.cms-stag.amdvids.com"
 	app := server.New(quickPlayURL)
-	app.Run(port)
+	n, _ := strconv.Atoi(port)
+	app.Run(n)
 }
 
 func init() {

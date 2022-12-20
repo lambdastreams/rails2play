@@ -1,1 +1,1 @@
-web: bin/rails2quickplay
+web: bin/transformer

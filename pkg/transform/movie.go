@@ -2,7 +2,10 @@ package transform
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+
+	b64 "encoding/base64"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/subbarao/transformer/pkg/api"
@@ -21,6 +24,57 @@ type Movie struct {
 	Writers         []string `json:"writers"`
 	Tags            []string `json:"tags"`
 	ProgrammingType string   `json:"programming_type"`
+}
+
+func contentLookupURL(baseURL string, slug string, contentType string) *api.Builder {
+	menu := map[string]any{
+		"filter": []map[string]any{
+			{"field": "cty", "operator": "equals", "term": contentType},
+			{"field": "nu", "operator": "equals", "term": slug},
+		},
+	}
+	data, _ := json.Marshal(&menu)
+	query := b64.StdEncoding.EncodeToString([]byte(data))
+	url := fmt.Sprintf("%s/content/lookup?reg=us&dt=androidmobile&client=amd-localnow-web&query=%s&pageNumber=1&pageSize=10&sortBy=ut", baseURL, query)
+
+	return api.URL(url)
+}
+
+func GetMovieId(baseURL string, slug string) (string, error) {
+	contextLogger := log.WithFields(log.Fields{
+		"slug": slug,
+	})
+
+	var body string
+	err := contentLookupURL(baseURL, slug, "movie").ToString(&body).Fetch(context.Background())
+	if err != nil {
+		contextLogger.Error("Failed to retrieve movie details", err)
+		return "", err
+	}
+	log.WithFields(log.Fields{
+		"output": body,
+	}).Info("lookup response")
+	id := gjson.Get(body, "data.0.id").String()
+	log.WithFields(log.Fields{
+		"id": id,
+	}).Info("resolved movie id")
+
+	return id, nil
+}
+func GetResource(baseURL string, slug string) (map[string]any, error) {
+	movieId, err := GetMovieId(baseURL, slug)
+	if err != nil {
+		return nil, err
+	}
+	movie, err := GetMovie(baseURL, movieId)
+	if err != nil {
+		return nil, err
+	}
+	return map[string]any{
+		"channel": []Movie{*movie},
+		"success": true,
+	}, nil
+
 }
 
 // Query movie information from quickplay

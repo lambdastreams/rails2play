@@ -16,7 +16,8 @@ type Series struct {
 
 func GetSeries(baseURL string, name string) (*Series, error) {
 	var body string
-	err := api.URL(seriesURL(baseURL, name)).
+	url := seriesURL(baseURL, name)
+	err := api.URL(url).
 		ToString(&body).
 		Fetch(context.Background())
 

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+IFS='
+'
+lines=( `go test` )
+title=${lines[0]}
+if [ $title != "PASS" ]
+then
+        title="FAIL"
+        echo "${lines[*]}"
+fi
+unset lines[0]
+terminal-notifier -title "go test" -subtitle "$title" -message "${lines[*]}" -group "go test `pwd`"

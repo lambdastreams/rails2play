@@ -39,57 +39,26 @@ func (a *App) Run(port int) {
 
 // initialize application routes
 func (app *App) initializeRoutes() {
-	app.router.HandleFunc("/movie/{id}", setJSONContentType(app.getMovie))
-	app.router.HandleFunc("/series/{id}", setJSONContentType(app.getSeries))
+	app.router.HandleFunc("/channel/US/{slug}", app.getMovie)
 }
 
 // HandleFunc queries quick play for movie details and responds with rails json keys
 func (a *App) getMovie(response http.ResponseWriter, request *http.Request) {
 	params := mux.Vars(request)
-	id := params["id"]
-	movie, err := transform.GetMovie(a.quickPlayURL, id)
-	if err != nil {
-		response.WriteHeader(http.StatusNotFound)
-		return
-	}
-	var resource = make(map[string]interface{})
-	resource["channels"] = [1]transform.Movie{*movie}
-	resource["success"] = true
-
-	jsonResponse, jsonError := json.Marshal(resource)
-
-	if jsonError != nil {
-		fmt.Println("Unable to encode JSON")
-	}
-
-	response.WriteHeader(http.StatusOK)
-	response.Write(jsonResponse)
-}
-
-// HandleFunc queries quick play for series details and responds with rails json keys
-func (a *App) getSeries(response http.ResponseWriter, request *http.Request) {
-	params := mux.Vars(request)
-	id := params["id"]
-	series, err := transform.GetSeries(a.quickPlayURL, id)
+	slug := params["slug"]
+	content, err := transform.GetResource(a.quickPlayURL, slug)
 	if err != nil {
 		response.WriteHeader(http.StatusNotFound)
 		return
 	}
 
-	jsonResponse, jsonError := json.Marshal(series)
+	jsonResponse, jsonError := json.Marshal(content)
 
 	if jsonError != nil {
 		fmt.Println("Unable to encode JSON")
-		return
 	}
 
+	response.Header().Add("Content-Type", "application/json")
 	response.WriteHeader(http.StatusOK)
 	response.Write(jsonResponse)
-}
-
-func setJSONContentType(next http.HandlerFunc) http.HandlerFunc {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		next(w, r)
-		w.Header().Add("Content-Type", "application/json")
-	})
 }

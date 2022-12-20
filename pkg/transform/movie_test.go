@@ -7,9 +7,26 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/h2non/gock"
 )
 
+type Filter struct {
+	Field    string `json:"field"`
+	Operator string `json:"operator"`
+	Term     string `json:"term"`
+}
+
+func TestQuerySlugName(t *testing.T) {
+	defer gock.Off() // Flush pending mocks after test execution
+	gock.New("https://quickplay.com/content/lookup?reg=us&dt=androidmobile&client=amd-localnow-web&query=eyJmaWx0ZXIiOlt7ImZpZWxkIjoiY3R5Iiwib3BlcmF0b3IiOiJlcXVhbHMiLCJ0ZXJtIjoibW92aWUifSx7ImZpZWxkIjoibnUiLCJvcGVyYXRvciI6ImVxdWFscyIsInRlcm0iOiJzdWJsZXQtdGhlIn1dfQ==&pageNumber=1&pageSize=10&sortBy=ut").
+		Reply(http.StatusOK).
+		File(path.Join("testdata", "movie_lookup.json"))
+	result, _ := GetMovieId("https://quickplay.com", "sublet-the")
+
+	assert.Equal(t, result, "")
+}
 func TestMoviePropertyTransform(t *testing.T) {
 	b, err := ioutil.ReadFile("testdata/movie.json")
 	if err != nil {
@@ -17,33 +34,27 @@ func TestMoviePropertyTransform(t *testing.T) {
 	}
 	value := string(b)
 	movie := buildMovie(value)
-	if movie.Id != "5584D1F9-D627-4205-BDF5-68A541F1BD85" {
-		t.Errorf("got %s, wanted %s", movie.Id, "5584D1F9-D627-4205-BDF5-68A541F1BD85")
-	}
 
-	if !reflect.DeepEqual(movie.Genre, [3]string{"Horror", "Mystery", "Thriller"}) {
-		t.Errorf("got %q, wanted adfk", movie.Genre)
-	}
-
+	assert.Equal(t, movie.Genre, []string{"Horror", "Mystery", "Thriller"})
 	cases := []struct {
 		field    string
 		expected string
 	}{
 		{
 			field:    "Id",
-			expected: "5584D1F9-D627-4205-BDF5-68A541F1BD85",
+			expected: "EF392B33-F6AB-4323-8DF9-3F9F761FFFD4",
 		},
 		{
 			field:    "Name",
-			expected: "Tidal Wave (English dub)",
+			expected: "The Sublet",
 		},
 		{
 			field:    "Title",
-			expected: "Tidal Wave (English dub)",
+			expected: "The Sublet",
 		},
 		{
 			field:    "Slug",
-			expected: "tidal-wave-english-dub",
+			expected: "sublet-the",
 		},
 		{
 			field:    "ProgrammingType",
@@ -51,11 +62,11 @@ func TestMoviePropertyTransform(t *testing.T) {
 		},
 		{
 			field:    "Rating",
-			expected: "R",
+			expected: "TV-14",
 		},
 		{
 			field:    "Description",
-			expected: "A deep-sea earthquake occurs, creating a tidal wave that is headed straight for Haeundae, a popular vacation spot on the south coast of Korea, which draws visitors from all over the world.",
+			expected: "The Sublet is a suspense driven psychological thriller about Joanna, a new mom coping with her baby alone in an odd sublet apartment. As her husband neglects her to focus on his career, Joanna questio",
 		},
 	}
 
@@ -83,8 +94,5 @@ func TestMovie(t *testing.T) {
 		Reply(http.StatusOK).
 		File(path.Join("testdata", "movie.json"))
 	movie, _ := GetMovie(baseURL, "foobar")
-
-	if movie.Id != "5584D1F9-D627-4205-BDF5-68A541F1BD85" {
-		t.Errorf("expected 5584D1F9-D627-4205-BDF5-68A541F1BD85, but got %s", movie.Id)
-	}
+	assert.Equal(t, movie.Id, "EF392B33-F6AB-4323-8DF9-3F9F761FFFD4")
 }
